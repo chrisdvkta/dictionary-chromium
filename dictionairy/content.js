@@ -16,9 +16,9 @@ document.addEventListener("dblclick", async () => {
     const data = await res.json();
     const definitions = (data.en || [])
       .flatMap((entry) =>
-        (entry.senses || []).map((sense) => ({
+        (entry.definitions || []).map((item) => ({
           partOfSpeech: entry.partOfSpeech,
-          definition: sense.glosses && sense.glosses[0],
+          definition: item.definition,
         })),
       )
       .filter((item) => item.definition)
@@ -45,7 +45,7 @@ function showTooltip(word, definitions, fallback) {
           ({ partOfSpeech, definition }) => `
             <div class="qd-entry">
               ${partOfSpeech ? `<span class="qd-pos">${escapeHTML(partOfSpeech)}</span>` : ""}
-              <p class="qd-def">${escapeHTML(definition)}</p>
+              <p class="qd-def">${escapeHTML(stripHTML(definition))}</p>
             </div>`,
         )
         .join("")
@@ -73,6 +73,12 @@ function escapeHTML(value) {
   const element = document.createElement("div");
   element.textContent = value;
   return element.innerHTML;
+}
+
+function stripHTML(value) {
+  const element = document.createElement("div");
+  element.innerHTML = value;
+  return element.textContent;
 }
 
 document.addEventListener("keydown", (e) => {
