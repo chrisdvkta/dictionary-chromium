@@ -53,3 +53,19 @@
   background: #e5e7eb;
   margin-bottom: 8px;
 }
+.qd-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.qd-close:hover {
+  color: #ffffff;
+}
